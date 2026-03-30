@@ -1,63 +1,161 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import emailjs from '@emailjs/browser';
+import ScrollReveal from '../components/ScrollReveal';
+import { FaGithub, FaLinkedin, FaEnvelope, FaPhone } from 'react-icons/fa';
 
 const Contact = () => {
-  const form = useRef();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [content, setContent] = useState('');
   const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState('');
+  const [isSending, setIsSending] = useState(false);
 
   const handleSend = (e) => {
-    console.log(e);
     e.preventDefault();
-    console.log(name);
+    if (!name || !email || !content) return;
+
+    setIsSending(true);
     emailjs.send("service_91ykr8q", "template_jf56353", {
       name: name,
       content: content,
       reply_to: email,
-    }, '1BVNBH1k_IN1WTFwk')
+    }, '8lnUlHoJf4h3sa30L')
       .then(
         (result) => {
-          console.log('Email sent successfully:', result);
-          setMessage('Message sent successfully!');
+          setMessage('Message sent successfully! I\'ll get back to you soon.');
+          setMessageType('success');
+          setName('');
+          setEmail('');
+          setContent('');
+          setIsSending(false);
         },
         (error) => {
-          console.error('Failed to send email:', error);
           setMessage('Failed to send message. Please try again.');
+          setMessageType('error');
+          setIsSending(false);
         }
       );
   };
 
-  return (
-    <div className="contact-container d-flex flex-column flex-md-row align-items-center justify-content-center">
-      <div className="contact-info">
-        <h1 className='protest-revolution-regular'>Contact Information</h1>
-        <h2 className="inconsolata">Github: <a className="inconsolata" href="https://github.com/Ajaykumarkuppusamy">Ajaykumarkuppusamy</a></h2>
-        <h2 className="inconsolata">LinkedIn: <a className="inconsolata" href="https://www.linkedin.com/in/ajay-kumar-k-57a55b228/">Ajay Kumar K</a></h2>
-        <h2 className="inconsolata">Email: <a className="inconsolata" href="mailto:ajaykumarkuppusamy@gmail.com">ajaykumarkuppusamy@gmail.com</a></h2>
-        <h2 className="inconsolata">Address: 3/58, Dharapuram,<br></br> Tamil Nadu, India</h2>
-        <h2 className="inconsolata">Phone: +91 8778098369</h2>
-      </div>
+  const contactLinks = [
+    {
+      icon: <FaGithub />,
+      label: 'GitHub',
+      value: 'Ajaykumarkuppusamy',
+      href: 'https://github.com/Ajaykumarkuppusamy',
+    },
+    {
+      icon: <FaLinkedin />,
+      label: 'LinkedIn',
+      value: 'ajay-kumar-kuppusamy',
+      href: 'https://linkedin.com/in/ajay-kumar-kuppusamy',
+    },
+    {
+      icon: <FaEnvelope />,
+      label: 'Email',
+      value: 'ajaykumarkuppusamy@gmail.com',
+      href: 'mailto:ajaykumarkuppusamy@gmail.com',
+    },
+    {
+      icon: <FaPhone />,
+      label: 'Phone',
+      value: '+91 877-809-8369',
+      href: 'tel:+918778098369',
+    },
+  ];
 
-      <div className="email-form">
-        <h1 className='protest-revolution-regular '>Contact Me</h1>
-        <form onSubmit={handleSend}>
-          <div className="mb-3 inconsolata">
-            <label htmlFor="name" className="form-label">Name</label>
-            <input type="text" className="form-control" id="name" value={name} onChange={(e) => setName(e.target.value)} />
-          </div>
-          <div className="mb-3 inconsolata">
-            <label htmlFor="email" className="form-label">Email</label>
-            <input type="email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          </div>
-          <div className="mb-3 inconsolata">
-            <label htmlFor="content" className="form-label">Content</label>
-            <textarea className="form-control" id="content" rows="3" value={content} onChange={(e) => setContent(e.target.value)} />
-          </div>
-          <button className="btn btn-primary inconsolata" onClick={handleSend}>Send</button>
-          <p className="message ">{message}</p>
-        </form>
+  return (
+    <div className="section contact-section">
+      <div className="section-inner">
+        <ScrollReveal>
+          <div className="section-label">Contact</div>
+          <h2 className="section-title">
+            Let's <span className="accent">connect</span>
+          </h2>
+        </ScrollReveal>
+
+        <div className="contact-grid">
+          <ScrollReveal delay={100}>
+            <div className="contact-info">
+              <p className="contact-description">
+                I'm always open to discussing new opportunities, interesting projects,
+                or just having a tech conversation. Feel free to reach out through any
+                of the channels below or drop me a message!
+              </p>
+              <div className="contact-links">
+                {contactLinks.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.href}
+                    target={link.href.startsWith('http') ? '_blank' : undefined}
+                    rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className="contact-link-item"
+                  >
+                    <div className="link-icon">{link.icon}</div>
+                    <div className="link-details">
+                      <div className="link-label">{link.label}</div>
+                      <div className="link-value">{link.value}</div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={300}>
+            <div className="contact-form-wrapper">
+              <h3 className="form-title">Send me a message</h3>
+              <form onSubmit={handleSend}>
+                <div className="form-group">
+                  <label htmlFor="contact-name">Name</label>
+                  <input
+                    type="text"
+                    id="contact-name"
+                    placeholder="Your full name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="contact-email">Email</label>
+                  <input
+                    type="email"
+                    id="contact-email"
+                    placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="contact-message">Message</label>
+                  <textarea
+                    id="contact-message"
+                    placeholder="Tell me about your project or opportunity..."
+                    rows="4"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="form-submit"
+                  disabled={isSending}
+                >
+                  {isSending ? 'Sending...' : 'Send Message →'}
+                </button>
+                {message && (
+                  <div className={`form-message ${messageType}`}>
+                    {message}
+                  </div>
+                )}
+              </form>
+            </div>
+          </ScrollReveal>
+        </div>
       </div>
     </div>
   );

@@ -1,28 +1,64 @@
 import React from 'react';
-import { FaMouse } from 'react-icons/fa';
 import Typewriter from '../components/Typewriter';
+import { FaGithub, FaLinkedin, FaEnvelope, FaCode, FaDownload } from 'react-icons/fa';
 
 const Home = () => {
   return (
-    <div className="home-section d-flex flex-column flex-md-row align-items-center justify-content-center">
-      <div className="container text-center">
-        <h1 className="mb-3 text-bold protest-revolution-regular" >I am </h1>
-        <Typewriter />
-        <h1 className="mb-4 orbitron">Software Developer / Student</h1>
-        <h2 className="intro-text mb-5 inconsolata">
-          As an ECE Engineer, I am seeking to kick-start my career
-          in a dynamic organization where I can utilize my technical and management skills to contribute to both my personal and professional growth, as well as the growth of
-          the company. I am eager to engage in opportunities that
-          align with the company’s goals and further its success </h2>
-        
-        <a href="#contact" className="btn btn-primary btn-lg">Contact Me</a>
+    <div className="hero-section">
+      <div className="hero-inner">
+        <div className="hero-content">
+          <div className="hero-greeting">{`// Hello, World! I'm`}</div>
+          <Typewriter />
+          <div className="hero-title">Software Development Engineer</div>
+          <div className="hero-location">
+            <span>📍</span> Bangalore, India
+          </div>
+          <div className="hero-actions">
+            <a href="#experience" className="btn-primary-custom">
+              View My Work
+              <span>→</span>
+            </a>
+            <a
+              href={process.env.PUBLIC_URL + '/images/Ajay kumar K.pdf'}
+              download="Ajay_Kumar_Kuppusamy_Resume.pdf"
+              className="btn-outline-custom"
+            >
+              <FaDownload /> Resume
+            </a>
+            <a href="#contact" className="btn-outline-custom">
+              Get In Touch
+            </a>
+          </div>
+          <div className="hero-socials">
+            <a href="https://github.com/Ajaykumarkuppusamy" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <FaGithub />
+            </a>
+            <a href="https://linkedin.com/in/ajay-kumar-kuppusamy" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <FaLinkedin />
+            </a>
+            <a href="https://leetcode.com/u/Ajaykumarkuppusamy" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">
+              <FaCode />
+            </a>
+            <a href="mailto:ajaykumarkuppusamy@gmail.com" aria-label="Email">
+              <FaEnvelope />
+            </a>
+          </div>
+        </div>
+        <div className="hero-image">
+          <div className="image-wrapper">
+            <img
+              src={process.env.PUBLIC_URL + '/images/profileAjay.jpg'}
+              alt="Ajay Kumar Kuppusamy"
+            />
+          </div>
+        </div>
       </div>
-      <img className="img-fluid" src={process.env.PUBLIC_URL + '/images/profile.jpg'} alt="profile Img" />
-      <div className="scroll-icon d-none d-lg-block">
-        <FaMouse />
+      <div className="scroll-indicator">
+        <span>Scroll</span>
+        <div className="scroll-line" />
       </div>
     </div>
   );
-}
+};
 
 export default Home;

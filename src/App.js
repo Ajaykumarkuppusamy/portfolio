@@ -1,77 +1,143 @@
 import React, { useEffect, useState } from 'react';
 import Home from './pages/Home';
+import About from './pages/About';
+import Experience from './pages/Experience';
+import Architecture from './pages/Architecture';
 import Skills from './pages/Skills';
-import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import './App.scss';
-import { FaMouse } from 'react-icons/fa';
+
+const navItems = [
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'architecture', label: 'Design' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'contact', label: 'Contact' },
+];
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + window.innerHeight / 2;
+      setIsScrolled(window.scrollY > 50);
 
-      if (scrollPosition < window.innerHeight) {
-        setActiveSection('home');
-      } else if (scrollPosition < window.innerHeight * 2) {
-        setActiveSection('skills');
-      } else if (scrollPosition < window.innerHeight * 3) {
-        setActiveSection('projects');
-      } else {
-        setActiveSection('contact');
+      const sections = navItems.map(item => ({
+        id: item.id,
+        el: document.getElementById(item.id),
+      }));
+
+      const scrollPos = window.scrollY + window.innerHeight / 3;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        if (sections[i].el && sections[i].el.offsetTop <= scrollPos) {
+          setActiveSection(sections[i].id);
+          break;
+        }
       }
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleNavClick = (e, sectionId) => {
+    e.preventDefault();
+    const el = document.getElementById(sectionId);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsMobileMenuOpen(false);
+  };
+
   return (
-    <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div className="container akaya-telivigala-regular">
-          <a className="navbar-brand akaya-telivigala-regular" href="#home">Hello! Just look</a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
+    <div className="app">
+      {/* Navbar */}
+      <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
+        <div className="navbar-inner">
+          <a
+            href="#home"
+            className="navbar-brand"
+            onClick={(e) => handleNavClick(e, 'home')}
+          >
+            <span className="brand-dot" />
+            AK
+          </a>
+
+          <button
+            className="mobile-toggle"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span />
+            <span />
+            <span />
           </button>
-          <div className="collapse navbar-collapse " id="navbarNav">
-            <ul className="navbar-nav ml-auto">
-              <li className={`nav-item ${activeSection === 'home' ? 'active source-code-pro' : ''}`}>
-                <a className="nav-link" href="#home">Home</a>
+
+          <ul className={`navbar-links ${isMobileMenuOpen ? 'open' : ''}`}>
+            {navItems.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className={activeSection === item.id ? 'active' : ''}
+                  onClick={(e) => handleNavClick(e, item.id)}
+                >
+                  {item.label}
+                </a>
               </li>
-              <li className={`nav-item ${activeSection === 'skills' ? 'active source-code-pro' : ''}`}>
-                <a className="nav-link" href="#skills">Skills</a>
-              </li>
-              <li className={`nav-item ${activeSection === 'projects' ? 'active source-code-pro' : ''}`}>
-                <a className="nav-link" href="#projects">Projects</a>
-              </li>
-              <li className={`nav-item ${activeSection === 'contact' ? 'active source-code-pro' : ''}`}>
-                <a className="nav-link" href="#contact">Contact</a>
-              </li>
-            </ul>
-          </div>
+            ))}
+          </ul>
+
+          {isMobileMenuOpen && (
+            <div
+              className="mobile-overlay active"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+          )}
         </div>
       </nav>
 
-      <section id="home" className={`full-height home-section ${activeSection === 'home' ? 'active' : ''}`}>
+      {/* Sections */}
+      <section id="home">
         <Home />
       </section>
-      <section id="skills" className={`full-height skills-section ${activeSection === 'skills' ? 'active' : ''}`}>
+
+      <section id="about">
+        <About />
+      </section>
+
+      <section id="experience">
+        <Experience />
+      </section>
+
+      <section id="architecture">
+        <Architecture />
+      </section>
+
+      <section id="skills">
         <Skills />
       </section>
-      <section id="projects" className={`full-height projects-section ${activeSection === 'projects' ? 'active' : ''}`}>
-        <Projects />
-      </section>
-      <section id="contact" className={`full-height contact-section ${activeSection === 'contact' ? 'active' : ''}`}>
+
+      <section id="contact">
         <Contact />
       </section>
-      <div className="scroll-icon">
-        <FaMouse />
-      </div>
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="footer-inner">
+          <div className="footer-links">
+            <a href="https://github.com/Ajaykumarkuppusamy" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://linkedin.com/in/ajay-kumar-kuppusamy" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="mailto:ajaykumarkuppusamy@gmail.com">Email</a>
+          </div>
+          <p className="footer-text">
+            © {new Date().getFullYear()} <span className="footer-accent">Ajay Kumar Kuppusamy</span>. Built with React.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
