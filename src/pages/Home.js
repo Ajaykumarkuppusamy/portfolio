@@ -46,7 +46,7 @@ const Home = () => {
         </div>
         <div className="hero-image">
           <div className="image-wrapper">
-            <img src="/images/profileAjay.jpg" alt="Ajay" />
+            <img className="img-fluid" src={process.env.PUBLIC_URL + '/images/profileAjay.jpg'} alt="Ajay" />
           </div>
         </div>
       </div>
