@@ -36,7 +36,7 @@ const Home = () => {
             <a href="https://linkedin.com/in/ajay-kumar-kuppusamy" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
               <FaLinkedin />
             </a>
-            <a href="https://leetcode.com/u/Ajaykumarkuppusamy" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">
+            <a href="https://leetcode.com/u/ajaykumarkaj" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">
               <FaCode />
             </a>
             <a href="mailto:ajaykumarkuppusamy@gmail.com" aria-label="Email">
