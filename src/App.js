@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Home from './pages/Home';
 import About from './pages/About';
 import Experience from './pages/Experience';
+import OpenSource from './pages/OpenSource';
 import Architecture from './pages/Architecture';
 import Skills from './pages/Skills';
 import Contact from './pages/Contact';
@@ -11,6 +12,7 @@ const navItems = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
   { id: 'experience', label: 'Experience' },
+  { id: 'opensource', label: 'Open Source' },
   { id: 'architecture', label: 'Design' },
   { id: 'skills', label: 'Skills' },
   { id: 'contact', label: 'Contact' },
@@ -111,6 +113,10 @@ function App() {
 
       <section id="experience">
         <Experience />
+      </section>
+
+      <section id="opensource">
+        <OpenSource />
       </section>
 
       <section id="architecture">

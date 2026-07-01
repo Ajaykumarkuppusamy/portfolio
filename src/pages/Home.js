@@ -1,6 +1,6 @@
 import React from 'react';
 import Typewriter from '../components/Typewriter';
-import { FaGithub, FaLinkedin, FaEnvelope, FaCode, FaDownload } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaCode, FaDownload, FaNpm } from 'react-icons/fa';
 
 const Home = () => {
   return (
@@ -35,6 +35,9 @@ const Home = () => {
             </a>
             <a href="https://linkedin.com/in/ajay-kumar-kuppusamy" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
               <FaLinkedin />
+            </a>
+            <a href="https://www.npmjs.com/package/adaptive-session-manager" target="_blank" rel="noopener noreferrer" aria-label="NPM">
+              <FaNpm />
             </a>
             <a href="https://leetcode.com/u/ajaykumarkaj" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">
               <FaCode />

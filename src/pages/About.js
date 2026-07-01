@@ -8,6 +8,7 @@ const About = () => {
     { number: '150+', label: 'APIs Built' },
     { number: '30K+', label: 'Users Served' },
     { number: '60%', label: 'Latency Reduced' },
+    { number: '1', label: 'NPM Package' },
     { number: '150+', label: 'LeetCode Problems' },
   ];
 
@@ -15,6 +16,7 @@ const About = () => {
     'Building high-scale FinTech payroll solutions for Fortune 500 clients like Unilever',
     'Architecting and leading delivery of enterprise resource management suites',
     'Performance optimization driving 30% improvements in production environments',
+    'Author of Adaptive Session Manager, a highly optimized open-source NPM package',
     'Rapid technology adoption — mastered Angular in two weeks for client delivery',
   ];
 

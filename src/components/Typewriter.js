@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 
-const WORDS = ["AJAY KUMAR KUPPUSAMY", "SOFTWARE ENGINEER", "FULL STACK DEVELOPER"];
+const WORDS = ["AJAY KUMAR KUPPUSAMY", "SOFTWARE ENGINEER", "FULL STACK DEVELOPER", "OPEN SOURCE CONTRIBUTOR"];
 
 const Typewriter = React.memo(() => {
   const [displayText, setDisplayText] = useState("");
